@@ -30,7 +30,7 @@ jobs:
       - name: Build tools (rpm for .rpm, Xvfb for the smoke test)
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends rpm xvfb xauth libnss3 libgbm1 libasound2t64 libgtk-3-0t64 libxss1 libxtst6 libsecret-1-0
+          sudo apt-get install -y --no-install-recommends rpm libfuse2t64 xvfb xauth libnss3 libgbm1 libasound2t64 libgtk-3-0t64 libxss1 libxtst6 libsecret-1-0
 
       - run: npm ci
 

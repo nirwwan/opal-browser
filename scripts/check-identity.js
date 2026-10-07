@@ -61,8 +61,13 @@ function main() {
     delete env.OPAL_ALLOW_AUTOMATION;
     const cmd = binary || require(path.join(ROOT, 'node_modules/electron'));
     const args = binary ? [url] : [ROOT, url];
-    child = spawn(cmd, ['--ozone-platform=x11', ...args], { env, stdio: 'ignore' });
-    setTimeout(() => { console.log('FAIL: no report within 60s'); child.kill(); process.exit(1); }, 60000).unref();
+    child = spawn(cmd, ['--ozone-platform=x11', ...args], { env, stdio: ['ignore', 'pipe', 'pipe'] });
+    let output = '';
+    const keep = (d) => { output = (output + d).slice(-4000); };
+    child.stdout.on('data', keep);
+    child.stderr.on('data', keep);
+    child.on('exit', (code) => { if (!headers) { console.log(`FAIL: Opal exited (code ${code}) before loading the page. Its output:\n${output}`); process.exit(1); } });
+    setTimeout(() => { console.log(`FAIL: no report within 60s. Opal's output:\n${output}`); child.kill(); process.exit(1); }, 60000).unref();
   });
 }
 
