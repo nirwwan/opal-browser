@@ -16,9 +16,9 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -29,6 +29,10 @@ jobs:
           sudo apt-get install -y --no-install-recommends xvfb xauth libnss3 libgbm1 libasound2t64 libgtk-3-0t64 libxss1 libxtst6 libsecret-1-0
 
       - run: npm ci
+
+      # Make sure Electron's own binary is downloaded (its postinstall step doesn't always run).
+      - name: Download Electron
+        run: node node_modules/electron/install.js
 
       # Ubuntu 24.04 restricts unprivileged user namespaces, so Chromium needs its setuid helper.
       - name: Enable Electron's sandbox helper
