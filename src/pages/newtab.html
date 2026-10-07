@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>New tab</title>
+  <link rel="stylesheet" href="pages.css">
+  <style>
+    html, body { height: 100%; }
+    body { display: grid; place-items: center; }
+    main { width: min(620px, 86vw); display: flex; flex-direction: column; align-items: center; margin-top: -8vh; }
+    .wordmark { font-size: 64px; font-weight: 500; letter-spacing: -0.03em; color: var(--text); margin: 0 0 28px; line-height: 1; }
+    form { width: 100%; }
+    #q {
+      width: 100%; height: 52px;
+      border: 1px solid var(--border); border-radius: 26px;
+      padding: 0 22px; font-size: 16px; outline: 0;
+      box-shadow: var(--shadow);
+    }
+    #q:focus { border-color: var(--accent); }
+    #q::placeholder { color: var(--text-2); }
+    .pinned { display: flex; gap: 18px; margin-top: 28px; flex-wrap: wrap; justify-content: center; }
+    .pin { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 68px; color: var(--body); font-size: 12px; text-decoration: none; }
+    .pin:hover { text-decoration: none; }
+    .pin .tile { width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--hair); display: grid; place-items: center; background: var(--panel); box-shadow: var(--shadow); font-weight: 600; font-size: 16px; color: var(--text); }
+    .pin:hover .tile { border-color: var(--border); }
+    .pin span.name { max-width: 68px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1 class="wordmark">Opal</h1>
+    <form id="search" action="https://www.google.com/search" method="get">
+      <input id="q" name="q" type="text" placeholder="Search the web" autocomplete="off" autofocus aria-label="Search the web">
+    </form>
+    <nav class="pinned" id="pinned" aria-label="Pinned sites"></nav>
+  </main>
+  <script src="newtab.js"></script>
+</body>
+</html>

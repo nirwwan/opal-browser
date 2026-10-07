@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'">
+  <title>Opal AI</title>
+  <link rel="stylesheet" href="ai.css">
+</head>
+<body>
+  <!-- Collapsed: a 52px strip with one sparkle button -->
+  <div id="strip" hidden>
+    <button id="reopen" class="strip-btn" title="Open Opal AI (Ctrl+Shift+A)" aria-label="Open Opal AI"></button>
+  </div>
+
+  <div id="panel">
+    <header class="head">
+      <span class="spark" id="spark"></span>
+      <h1>Opal AI</h1>
+      <div class="seg" id="sizes" role="group" aria-label="Panel size">
+        <button data-size="S" title="Small (320px)">S</button>
+        <button data-size="M" title="Medium (400px)">M</button>
+        <button data-size="L" title="Large (520px)">L</button>
+      </div>
+      <button class="icon-btn" id="chats-btn" title="Recent chats" aria-label="Recent chats"></button>
+      <button class="icon-btn" id="new-chat" title="New chat" aria-label="New chat"></button>
+      <button class="icon-btn" id="collapse" title="Collapse" aria-label="Collapse Opal AI"></button>
+    </header>
+
+    <div id="chats" class="chats" hidden></div>
+
+    <div class="providers seg wide" id="providers" role="group" aria-label="Provider">
+      <button data-provider="claude">Claude</button>
+      <button data-provider="openai">ChatGPT</button>
+      <button data-provider="both">Both</button>
+    </div>
+
+    <div id="reading" class="reading">
+      <span class="r-ic" id="r-ic"></span>
+      <span class="r-text">Reading this page: <b id="r-title"></b></span>
+      <button class="icon-btn small" id="r-toggle" title="Don't use this page" aria-label="Don't use this page"></button>
+    </div>
+
+    <div id="setup" class="setup" hidden>
+      <div class="o-title">Set up Opal AI</div>
+      <div class="o-body">Opal works fully without AI. To ask about pages, summarize, translate or use agent mode, pick one:</div>
+      <ul class="s-list">
+        <li><b>Ollama</b> runs models on this computer: free and private, no account.</li>
+        <li><b>Your own API key</b> for Claude or OpenAI, stored encrypted on this computer.</li>
+        <li><b>Onyx</b>, if you use the Onyx editor.</li>
+      </ul>
+      <div class="acts"><button class="btn" id="setup-retry">Check again</button><button class="btn primary" id="setup-open">Set up</button></div>
+    </div>
+
+    <div id="offline" class="offline" hidden>
+      <div class="o-title" id="o-title">Opal AI isn't ready</div>
+      <div class="o-body" id="o-body"></div>
+      <div class="o-detail" id="o-detail"></div>
+      <div class="acts"><button class="btn" id="retry">Try again</button><button class="btn" id="o-settings">Settings</button></div>
+    </div>
+
+    <div id="messages" role="log" aria-live="polite"></div>
+
+    <div id="agent" class="agent" hidden></div>
+
+    <div class="status" id="status" hidden>
+      <canvas id="thinking" width="48" height="48" aria-hidden="true"></canvas>
+      <span id="status-text" class="status-text"></span>
+    </div>
+
+    <div class="quick" id="quick">
+      <button data-action="summarize">Summarize page</button>
+      <button data-action="compare-tabs">Compare my tabs</button>
+      <button data-action="sort-tabs">Sort tabs into spaces</button>
+    </div>
+
+    <div id="slash-hints" class="slash-hints" hidden></div>
+    <form id="composer" class="composer">
+      <textarea id="input" rows="1" placeholder="Ask, or type /hide, /small, /large" aria-label="Ask Opal AI"></textarea>
+      <div class="c-row">
+        <label class="agent-toggle" title="Let Opal AI act on the page: click, type, scroll, navigate and manage tabs"><input type="checkbox" id="agent-mode"> Agent</label>
+        <span class="grow"></span>
+        <button type="button" class="btn stop" id="stop" hidden>Stop</button>
+        <button type="submit" class="send" id="send" title="Send (Enter)" aria-label="Send"></button>
+      </div>
+    </form>
+  </div>
+
+  <script src="icons.js"></script>
+  <script src="../shared/slash.js"></script>
+  <script src="thinking.js"></script>
+  <script src="ai.js"></script>
+</body>
+</html>

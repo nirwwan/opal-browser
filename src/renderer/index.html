@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: http:; font-src 'self'">
+  <title>Opal</title>
+  <link rel="stylesheet" href="ui.css">
+</head>
+<body>
+  <div id="app">
+    <!-- 1. Spaces rail -->
+    <nav id="rail" aria-label="Spaces">
+      <div class="win-controls">
+        <button class="wc wc-close" data-wc="close" title="Close" aria-label="Close window"></button>
+        <button class="wc wc-min" data-wc="minimize" title="Minimise" aria-label="Minimise window"></button>
+        <button class="wc wc-max" data-wc="maximize" title="Maximise" aria-label="Maximise window"></button>
+      </div>
+      <div id="spaces" role="tablist" aria-orientation="vertical"></div>
+      <button id="add-space" class="rail-btn" title="Add space" aria-label="Add space"></button>
+      <div class="rail-spacer"></div>
+      <button id="incognito-btn" class="rail-btn" title="New incognito window (Ctrl+Shift+N)" aria-label="New incognito window"></button>
+      <button id="settings-btn" class="rail-btn" title="Settings" aria-label="Settings"></button>
+    </nav>
+
+    <!-- 2. Tabs column -->
+    <aside id="tabs-col" aria-label="Tabs">
+      <header class="space-head">
+        <h1 id="space-name">Personal</h1>
+        <div id="tab-count" class="muted">0 tabs</div>
+      </header>
+      <button id="new-tab" class="new-tab"><span class="nt-icon"></span><span>New tab</span><kbd>Ctrl T</kbd></button>
+      <div id="tab-list" role="tablist" aria-orientation="vertical"></div>
+      <section id="saved" aria-label="Saved in this space">
+        <div class="section-label">Saved in this space</div>
+        <div id="saved-list"></div>
+      </section>
+      <button id="profile-card" class="profile-card" aria-label="Profile">
+        <span id="profile-avatar" class="avatar">P</span>
+        <span class="profile-text">
+          <span id="profile-name" class="profile-name">Personal</span>
+          <span id="profile-sub" class="muted">Saved on this computer</span>
+        </span>
+        <span id="profile-dot" class="sync-dot" title=""></span>
+      </button>
+    </aside>
+
+    <!-- 3. Page pane -->
+    <main id="page">
+      <div id="toolbar">
+        <button class="tb" id="back" title="Back (Alt+Left)" aria-label="Back"></button>
+        <button class="tb" id="forward" title="Forward (Alt+Right)" aria-label="Forward"></button>
+        <button class="tb" id="reload" title="Reload (Ctrl+R)" aria-label="Reload"></button>
+        <button class="tb" id="home" title="Home" aria-label="Home"></button>
+        <form id="omnibox" autocomplete="off">
+          <button type="button" id="site-info" class="ob-icon" aria-label="Site information"></button>
+          <input id="address" type="text" spellcheck="false" placeholder="Search Google or type a URL" aria-label="Address and search bar">
+          <span id="zoom-chip" class="zoom-chip" hidden></span>
+          <button type="button" class="ob-btn" id="translate-btn" title="Translate this page" aria-label="Translate this page"></button>
+          <button type="button" class="ob-btn" id="passwords-btn" title="Saved passwords" aria-label="Saved passwords"></button>
+          <button type="button" class="ob-btn" id="star-btn" title="Bookmark this page (Ctrl+D)" aria-label="Bookmark this page"></button>
+        </form>
+        <button class="tb" id="extensions-btn" title="Extensions" aria-label="Extensions"></button>
+        <button class="tb" id="downloads-btn" title="Downloads (Ctrl+J)" aria-label="Downloads">
+          <svg class="ring" viewBox="0 0 32 32" aria-hidden="true"><circle class="ring-bg" cx="16" cy="16" r="13"/><circle class="ring-fg" cx="16" cy="16" r="13"/></svg>
+        </button>
+        <button id="ai-btn" class="ai-btn" title="Opal AI (Ctrl+Shift+A)" aria-label="Toggle Opal AI"><span class="ai-ic"></span>AI</button>
+        <button class="tb" id="menu-btn" title="Customise and control Opal" aria-label="Menu"></button>
+      </div>
+      <div id="bookmarks-bar">
+        <div id="bm-items"></div>
+        <button id="bm-all" class="bm-item"><span class="bm-ic"></span>All bookmarks</button>
+      </div>
+      <div id="infobars"></div>
+      <div id="findbar" hidden>
+        <input id="find-input" type="text" placeholder="Find in page" spellcheck="false" aria-label="Find in page">
+        <span id="find-count" class="muted"></span>
+        <button class="tb small" id="find-prev" title="Previous (Shift+Enter)" aria-label="Previous match"></button>
+        <button class="tb small" id="find-next" title="Next (Enter)" aria-label="Next match"></button>
+        <button class="tb small" id="find-close" title="Close (Esc)" aria-label="Close find bar"></button>
+      </div>
+      <div id="content">
+        <div id="content-msg" hidden></div>
+      </div>
+    </main>
+
+    <!-- 4. Opal AI panel slot (the panel itself is a separate view laid over this slot) -->
+    <div id="ai-handle" title="Drag to resize Opal AI" hidden><span></span></div>
+    <aside id="ai-slot" aria-label="Opal AI" hidden></aside>
+  </div>
+
+  <div id="popover" hidden></div>
+  <div id="toast" hidden></div>
+
+  <script src="icons.js"></script>
+  <script src="thinking.js"></script>
+  <script src="ui.js"></script>
+</body>
+</html>

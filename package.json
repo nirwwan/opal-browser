@@ -1,0 +1,171 @@
+{
+  "name": "opal-browser",
+  "productName": "Opal",
+  "version": "0.1.0",
+  "description": "Opal, a calm desktop web browser for Linux",
+  "main": "src/main/main.js",
+  "author": "nirwwan <nirwwan@users.noreply.github.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "node --test test/unit/*.test.js",
+    "test:e2e": "xvfb-run -a -s \"-screen 0 1600x1000x24\" playwright test",
+    "dist": "electron-builder --linux --publish never",
+    "dist:deb": "electron-builder --linux deb --x64 --publish never",
+    "dist:appimage": "electron-builder --linux AppImage --x64 --publish never",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@playwright/test": "^1.63.0",
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3",
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0",
+    "lucide-static": "^1.52.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
+    "@mozilla/readability": "^0.6.0",
+    "electron-chrome-extensions": "^4.9.0",
+    "electron-chrome-web-store": "^0.13.0",
+    "electron-updater": "^6.8.9"
+  },
+  "homepage": "https://github.com/nirwwan/opal-browser",
+  "build": {
+    "appId": "dev.opal.browser",
+    "productName": "Opal",
+    "executableName": "opal",
+    "copyright": "Opal",
+    "directories": {
+      "output": "dist",
+      "buildResources": "packaging"
+    },
+    "files": [
+      "package.json",
+      "src/**/*",
+      "assets/**/*",
+      "build/icons/*.png",
+      "build/opal-logo-*.png",
+      "!**/*.map"
+    ],
+    "asar": true,
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "rpm",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "tar.gz",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "build/icons",
+      "category": "Network;WebBrowser",
+      "synopsis": "A calm web browser with Opal AI",
+      "description": "Opal is a calm desktop web browser for Linux with spaces, vertical tabs and Opal AI.",
+      "maintainer": "nirwwan <nirwwan@users.noreply.github.com>",
+      "vendor": "Opal",
+      "executableArgs": [],
+      "mimeTypes": [
+        "text/html",
+        "application/xhtml+xml",
+        "x-scheme-handler/http",
+        "x-scheme-handler/https"
+      ],
+      "desktop": {
+        "entry": {
+          "Name": "Opal",
+          "GenericName": "Web Browser",
+          "Comment": "Browse the web with Opal",
+          "Categories": "Network;WebBrowser;",
+          "StartupWMClass": "opal",
+          "Keywords": "browser;web;internet;opal;"
+        }
+      },
+      "syncDesktopName": true,
+      "artifactName": "opal-${version}-linux-${arch}.${ext}"
+    },
+    "deb": {
+      "packageName": "opal-browser",
+      "depends": [
+        "libgtk-3-0",
+        "libnotify4",
+        "libnss3",
+        "libxss1",
+        "libxtst6",
+        "xdg-utils",
+        "libatspi2.0-0",
+        "libuuid1",
+        "libsecret-1-0"
+      ],
+      "afterInstall": "packaging/after-install.sh",
+      "afterRemove": "packaging/after-remove.sh",
+      "artifactName": "opal-browser_${version}_${arch}.deb"
+    },
+    "appImage": {
+      "artifactName": "Opal-${version}-${arch}.AppImage"
+    },
+    "afterPack": "packaging/after-pack.js",
+    "rpm": {
+      "packageName": "opal-browser",
+      "depends": [
+        "gtk3",
+        "libnotify",
+        "nss",
+        "libXScrnSaver",
+        "libXtst",
+        "xdg-utils",
+        "at-spi2-core",
+        "libuuid",
+        "libsecret"
+      ],
+      "afterInstall": "packaging/after-install.sh",
+      "afterRemove": "packaging/after-remove.sh",
+      "fpm": [
+        "--rpm-rpmbuild-define=_build_id_links none"
+      ],
+      "artifactName": "opal-browser-${version}.${arch}.rpm"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "nirwwan",
+        "repo": "opal-browser",
+        "releaseType": "release"
+      }
+    ]
+  },
+  "desktopName": "opal.desktop",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nirwwan/opal-browser.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nirwwan/opal-browser/issues"
+  }
+}

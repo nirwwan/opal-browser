@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>History</title>
+  <link rel="stylesheet" href="pages.css">
+  <style>
+    .day { font-size: 12px; font-weight: 500; color: var(--text-2); margin: 22px 0 8px; }
+    .h-row { display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-radius: var(--r-btn); }
+    .h-row:hover { background: var(--hover); }
+    .h-row input { accent-color: var(--accent); }
+    .h-row .time { width: 46px; color: var(--text-2); font-size: 12px; font-variant-numeric: tabular-nums; }
+    .h-row a { color: var(--text); flex: 1; min-width: 0; }
+    .h-row .host { color: var(--text-2); font-size: 12px; max-width: 30%; }
+    .bar { position: sticky; top: 0; background: var(--panel); padding: 12px 0; display: flex; gap: 8px; align-items: center; z-index: 1; border-bottom: 1px solid var(--hair); }
+    #q { flex: 1; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="page-head"><h1>History</h1><button class="btn" id="clear">Delete browsing data…</button></div>
+    <div class="bar">
+      <input class="field" id="q" type="search" placeholder="Search history" autofocus>
+      <button class="btn danger" id="del" hidden>Delete selected</button>
+    </div>
+    <div id="list"></div>
+    <div id="more-wrap" class="empty" hidden><button class="btn" id="more">Show more</button></div>
+  </div>
+  <script src="icons.js"></script>
+  <script src="history.js"></script>
+</body>
+</html>

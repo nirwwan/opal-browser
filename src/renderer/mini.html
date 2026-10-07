@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'">
+  <title>Picture in picture</title>
+  <link rel="stylesheet" href="base.css">
+  <style>
+    html, body { background: #141821; color: #fff; }
+    .bar { height: 30px; display: flex; align-items: center; gap: 6px; padding: 0 6px 0 10px; -webkit-app-region: drag; }
+    .t { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px; color: #c9ced8; }
+    button { -webkit-app-region: no-drag; width: 24px; height: 24px; border-radius: 6px; display: grid; place-items: center; color: #c9ced8; }
+    button:hover { background: rgba(255,255,255,.12); color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="bar"><span class="t" id="t">Picture in picture</span>
+    <button id="back" title="Back to tab" aria-label="Back to tab"></button>
+    <button id="close" title="Close" aria-label="Close picture in picture"></button>
+  </div>
+  <script src="icons.js"></script>
+  <script src="mini.js"></script>
+</body>
+</html>

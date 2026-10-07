@@ -1,0 +1,21 @@
+name: Feature request
+description: Suggest an idea for Opal
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would you like to do?
+      description: The problem or need, in your own words.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: How could Opal help?
+      description: Your idea for a solution. Mock-ups welcome.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: Other ways you've tried or considered.

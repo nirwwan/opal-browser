@@ -1,0 +1,68 @@
+/* Shared styles for Opal's own pages (opal://...). */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
+  font-display: block;
+  src: url(fonts/BricolageGrotesque-latin.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
+  font-display: block;
+  src: url(fonts/BricolageGrotesque-latin-ext.woff2) format('woff2-variations');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+:root {
+  --panel: #ffffff;
+  --text: #141821;
+  --text-2: #5a6170;
+  --body: #2a2f3a;
+  --hair: #edf0f3;
+  --border: #d7dce4;
+  --hover: #f1f3f6;
+  --accent: #2a4bc7;
+  --r-panel: 12px;
+  --r-btn: 8px;
+  --shadow: 0 2px 6px rgba(20, 24, 33, .06);
+  --font: 'Bricolage Grotesque', system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font: 400 13px/1.45 var(--font); color: var(--body); background: var(--panel); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { color: var(--text); font-weight: 500; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+button { font: inherit; }
+input, select, textarea { font: inherit; color: var(--text); }
+.muted { color: var(--text-2); }
+.ic { display: block; flex: none; }
+[hidden] { display: none !important; }
+.btn {
+  height: 30px; padding: 0 12px; border-radius: var(--r-btn);
+  border: 1px solid var(--border); background: var(--panel); color: var(--text);
+  font-weight: 500; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn:hover { background: var(--hover); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.danger { color: #a8324a; }
+.field {
+  height: 32px; border: 1px solid var(--border); border-radius: var(--r-btn);
+  padding: 0 10px; outline: 0; background: var(--panel);
+}
+.field:focus { border-color: var(--accent); }
+.wrap { max-width: 860px; margin: 0 auto; padding: 40px 32px 80px; }
+.page-head { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+.page-head h1 { font-size: 26px; margin: 0; flex: 1; }
+.card { border: 1px solid var(--hair); border-radius: var(--r-panel); background: var(--panel); }
+.row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--hair); }
+.row:last-child { border-bottom: 0; }
+.row .grow { flex: 1; min-width: 0; }
+.ellipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.icon-btn { width: 28px; height: 28px; border: 0; background: none; border-radius: var(--r-btn); display: grid; place-items: center; color: var(--text-2); }
+.icon-btn:hover { background: var(--hover); color: var(--text); }
+.fav { width: 16px; height: 16px; border-radius: 4px; flex: none; display: grid; place-items: center; font-size: 10px; font-weight: 600; color: #fff; background: #9aa2b1; }
+.empty { padding: 40px; text-align: center; color: var(--text-2); }
+.section-title { font-size: 12px; font-weight: 500; color: var(--text-2); margin: 24px 0 8px; }

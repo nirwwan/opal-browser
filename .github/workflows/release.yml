@@ -1,0 +1,65 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      TAG: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Check the tag matches package.json
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          test "v$VERSION" = "$TAG" || { echo "Tag $TAG does not match package.json version $VERSION"; exit 1; }
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Build tools (rpm for .rpm, Xvfb for the smoke test)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends rpm xvfb xauth libnss3 libgbm1 libasound2t64 libgtk-3-0t64 libxss1 libxtst6 libsecret-1-0
+
+      - run: npm ci
+
+      - name: Build AppImage, .deb, .rpm and .tar.gz for x64 and arm64
+        run: npx electron-builder --linux --publish never
+
+      - name: Smoke test the x64 AppImage
+        run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          xvfb-run -a -s "-screen 0 1600x1000x24" node scripts/check-identity.js "$PWD/dist/Opal-$VERSION-x86_64.AppImage"
+
+      - name: Checksums
+        working-directory: dist
+        run: |
+          sha256sum *.AppImage *.deb *.rpm *.tar.gz latest-linux*.yml > SHA256SUMS
+          cat SHA256SUMS
+
+      - name: Release notes from CHANGELOG.md
+        run: |
+          awk -v v="$VERSION" '
+            /^## \[/ { if (on) exit; if (index($0, "[" v "]")) { on = 1; next } }
+            on { print }
+          ' CHANGELOG.md > notes.md
+          test -s notes.md || echo "Opal $VERSION" > notes.md
+          cat notes.md
+
+      - name: Publish the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$TAG" --verify-tag --title "Opal $VERSION" --notes-file notes.md \
+            dist/*.AppImage dist/*.deb dist/*.rpm dist/*.tar.gz dist/latest-linux*.yml dist/SHA256SUMS

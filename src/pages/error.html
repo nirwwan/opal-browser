@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Page can't be reached</title>
+  <link rel="stylesheet" href="pages.css">
+  <style>
+    html, body { height: 100%; }
+    body { display: grid; place-items: center; }
+    main { max-width: 520px; padding: 32px; }
+    h1 { font-size: 24px; margin: 0 0 8px; }
+    code { font-size: 12px; color: var(--text-2); }
+    .actions { margin-top: 20px; display: flex; gap: 8px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1 id="title">This site can't be reached</h1>
+    <p id="desc" class="muted"></p>
+    <code id="code"></code>
+    <div class="actions"><button class="btn primary" id="retry">Try again</button></div>
+  </main>
+  <script src="error.js"></script>
+</body>
+</html>

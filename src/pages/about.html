@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>About Opal</title>
+  <link rel="stylesheet" href="pages.css">
+  <style>
+    .hero { display: flex; align-items: center; gap: 22px; margin: 20px 0 30px; }
+    .hero img { width: 88px; height: 88px; border-radius: 20px; }
+    .hero img.wordmark { width: auto; height: 72px; border-radius: 0; }
+    .hero h1 { font-size: 34px; margin: 0; }
+    dl { display: grid; grid-template-columns: 160px 1fr; gap: 8px 16px; margin: 0; }
+    dt { color: var(--text-2); }
+    dd { margin: 0; color: var(--text); word-break: break-all; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <img id="logo" alt="Opal logo" hidden>
+      <div><h1 id="name">Opal</h1><div class="muted">A calm web browser for Linux</div></div>
+    </div>
+    <div class="card" style="padding:18px 20px">
+      <dl id="info"></dl>
+    </div>
+    <p class="muted" style="margin-top:20px">Opal AI works with Ollama, your own Claude or OpenAI API key (stored encrypted on this computer), or Onyx.
+      Font: Bricolage Grotesque (SIL Open Font License). Icons: Lucide (ISC). Reader mode: Mozilla Readability (Apache 2.0).</p>
+    <p><a href="opal://help">Keyboard shortcuts</a></p>
+  </div>
+  <script src="about.js"></script>
+</body>
+</html>

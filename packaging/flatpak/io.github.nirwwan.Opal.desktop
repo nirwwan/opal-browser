@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Opal
+GenericName=Web Browser
+Comment=A calm web browser with spaces, vertical tabs and Opal AI
+Exec=opal %U
+Icon=io.github.nirwwan.Opal
+Terminal=false
+Type=Application
+StartupWMClass=opal
+Categories=Network;WebBrowser;
+MimeType=text/html;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
+Keywords=browser;web;internet;

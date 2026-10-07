@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Reader</title>
+  <link rel="stylesheet" href="pages.css">
+  <style>
+    body { background: #fbfaf7; }
+    article { max-width: 680px; margin: 0 auto; padding: 56px 28px 120px; font-size: 18px; line-height: 1.7; color: #2a2f3a; }
+    .src { font-size: 13px; color: var(--text-2); display: flex; gap: 10px; align-items: center; margin-bottom: 14px; }
+    h1.title { font-size: 34px; line-height: 1.2; margin: 0 0 10px; letter-spacing: -0.01em; }
+    .byline { color: var(--text-2); font-size: 14px; margin-bottom: 32px; }
+    #content img, #content video, #content figure { max-width: 100%; height: auto; }
+    #content figure { margin: 24px 0; }
+    #content figcaption { font-size: 13px; color: var(--text-2); }
+    #content pre { background: #f1f3f6; padding: 14px; border-radius: 8px; overflow-x: auto; font-size: 14px; }
+    #content blockquote { margin: 0; padding-left: 18px; border-left: 3px solid var(--border); color: #4a5060; }
+    #content a { color: var(--accent); }
+    .tools { position: fixed; top: 14px; right: 18px; display: flex; gap: 6px; }
+  </style>
+</head>
+<body>
+  <div class="tools">
+    <button class="btn" id="smaller" title="Smaller text">A−</button>
+    <button class="btn" id="bigger" title="Larger text">A+</button>
+    <button class="btn" id="exit">Exit reader</button>
+  </div>
+  <article>
+    <div class="src"><a id="orig" href="#">Original page</a><span id="site"></span></div>
+    <h1 class="title" id="title"></h1>
+    <div class="byline" id="byline"></div>
+    <div id="content"></div>
+  </article>
+  <script src="reader.js"></script>
+</body>
+</html>

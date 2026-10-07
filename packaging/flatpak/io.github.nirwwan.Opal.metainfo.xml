@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.nirwwan.Opal</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <name>Opal</name>
+  <summary>A calm web browser with spaces, vertical tabs and Opal AI</summary>
+  <developer id="io.github.nirwwan">
+    <name>nirwwan</name>
+  </developer>
+  <description>
+    <p>Opal is a desktop web browser built on Chromium (through Electron) with a quiet, focused design.</p>
+    <ul>
+      <li>Spaces with their own tabs and bookmarks, vertical tabs and split view</li>
+      <li>Reader mode, picture in picture, find, zoom, print and save as PDF</li>
+      <li>Chrome Web Store extensions (partial API support)</li>
+      <li>Opal AI: ask about a page, summarize, translate and agent mode, using Ollama on your computer or your own Claude or OpenAI API key</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">io.github.nirwwan.Opal.desktop</launchable>
+  <url type="homepage">https://github.com/nirwwan/opal-browser</url>
+  <url type="bugtracker">https://github.com/nirwwan/opal-browser/issues</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/nirwwan/opal-browser/main/docs/screenshots/opal.png</image>
+      <caption>Spaces, vertical tabs and the Opal AI panel</caption>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1"/>
+  <categories>
+    <category>Network</category>
+    <category>WebBrowser</category>
+  </categories>
+  <releases>
+    <release version="0.1.0" date="2026-10-07">
+      <description><p>First public release.</p></description>
+    </release>
+  </releases>
+</component>

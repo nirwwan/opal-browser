@@ -1,0 +1,58 @@
+# Flatpak manifest for Opal (not submitted to Flathub yet; see packaging/flatpak/README.md).
+# Builds from the release .tar.gz, so it needs no network access during the build.
+#   flatpak-builder --user --install --force-clean build-dir packaging/flatpak/io.github.nirwwan.Opal.yml
+app-id: io.github.nirwwan.Opal
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: '24.08'
+command: opal
+separate-locales: false
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --socket=pulseaudio
+  - --device=dri
+  - --filesystem=xdg-download
+  - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.freedesktop.secrets
+  - --talk-name=org.kde.kwalletd5
+  - --talk-name=org.kde.kwalletd6
+  - --env=ELECTRON_TRASH=gio
+modules:
+  - name: opal
+    buildsystem: simple
+    build-commands:
+      - mkdir -p /app/opal
+      - cp -a opal-tarball/. /app/opal/
+      # Flatpak has its own sandbox; Chromium's is provided through zypak.
+      - rm -f /app/opal/chrome-sandbox
+      - install -Dm755 opal.sh /app/bin/opal
+      - install -Dm644 io.github.nirwwan.Opal.metainfo.xml /app/share/metainfo/io.github.nirwwan.Opal.metainfo.xml
+      - install -Dm644 io.github.nirwwan.Opal.desktop /app/share/applications/io.github.nirwwan.Opal.desktop
+      - for s in 16 32 48 64 128 256 512; do install -Dm644 icons/${s}x${s}.png /app/share/icons/hicolor/${s}x${s}/apps/io.github.nirwwan.Opal.png; done
+    sources:
+      - type: archive
+        only-arches: [x86_64]
+        url: https://github.com/nirwwan/opal-browser/releases/download/v0.1.0/opal-0.1.0-linux-x64.tar.gz
+        sha256: FILL_IN_FROM_SHA256SUMS
+        dest: opal-tarball
+      - type: archive
+        only-arches: [aarch64]
+        url: https://github.com/nirwwan/opal-browser/releases/download/v0.1.0/opal-0.1.0-linux-arm64.tar.gz
+        sha256: FILL_IN_FROM_SHA256SUMS
+        dest: opal-tarball
+      - type: script
+        dest-filename: opal.sh
+        commands:
+          - exec zypak-wrapper /app/opal/opal-bin --ozone-platform-hint=auto "$@"
+      - type: file
+        path: io.github.nirwwan.Opal.metainfo.xml
+      - type: file
+        path: io.github.nirwwan.Opal.desktop
+      - type: dir
+        path: ../../build/icons
+        dest: icons

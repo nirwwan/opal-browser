@@ -1,0 +1,74 @@
+name: Bug report
+description: Something in Opal doesn't work as it should
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open …
+        2. Click …
+        3. See …
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Opal version
+      description: Settings → About Opal
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: input
+    id: distro
+    attributes:
+      label: Distribution and version
+      placeholder: Ubuntu 24.04, Fedora 41, Arch …
+    validations:
+      required: true
+  - type: input
+    id: desktop
+    attributes:
+      label: Desktop environment
+      placeholder: GNOME 46, KDE Plasma 6, Sway, ChromeOS …
+    validations:
+      required: true
+  - type: dropdown
+    id: display
+    attributes:
+      label: Display server
+      description: "Run: echo $XDG_SESSION_TYPE"
+      options: [Wayland, X11, Not sure]
+    validations:
+      required: true
+  - type: dropdown
+    id: package
+    attributes:
+      label: How did you install Opal?
+      options: [AppImage, .deb, .rpm, .tar.gz, Flatpak (built locally), From source]
+    validations:
+      required: true
+  - type: dropdown
+    id: arch
+    attributes:
+      label: Architecture
+      options: [x64 / amd64, arm64 / aarch64]
+  - type: textarea
+    id: logs
+    attributes:
+      label: Terminal output
+      description: Start Opal from a terminal (`opal`) and paste anything it prints. Remove anything private.
+      render: text
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Screenshots, extensions you use, Opal AI backend (Ollama / API key / Onyx)…

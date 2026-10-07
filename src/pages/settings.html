@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Settings</title>
+  <link rel="stylesheet" href="pages.css">
+  <style>
+    .layout { display: grid; grid-template-columns: 190px 1fr; gap: 32px; max-width: 980px; margin: 0 auto; padding: 40px 32px 120px; }
+    nav { position: sticky; top: 40px; align-self: start; display: flex; flex-direction: column; gap: 2px; }
+    nav h1 { font-size: 26px; margin: 0 0 18px 10px; }
+    nav a { display: block; padding: 7px 10px; border-radius: var(--r-btn); color: var(--body); }
+    nav a:hover { background: var(--hover); text-decoration: none; }
+    nav a.on { background: var(--hover); color: var(--text); font-weight: 500; }
+    section { margin-bottom: 30px; scroll-margin-top: 30px; }
+    section h2 { font-size: 16px; margin: 0 0 10px; }
+    .set { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border-bottom: 1px solid var(--hair); min-height: 52px; }
+    .set:last-child { border-bottom: 0; }
+    .set .lbl { flex: 1; min-width: 0; }
+    .set .lbl b { display: block; color: var(--text); font-weight: 500; }
+    .set .lbl span { display: block; font-size: 12px; color: var(--text-2); }
+    .set .lbl code { font-size: 11.5px; background: var(--hover); padding: 0 4px; border-radius: 4px; }
+    .set select.field, .set input.field { width: 240px; max-width: 46%; flex: none; }
+    .set .lbl { min-width: 160px; }
+    html { overflow-x: hidden; }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; gap: 12px; padding: 28px 20px 100px; }
+      nav { position: static; flex-direction: row; flex-wrap: wrap; gap: 4px; }
+      nav h1 { width: 100%; margin: 0 0 10px 4px; }
+      nav a { padding: 4px 10px; font-size: 12px; border: 1px solid var(--hair); }
+    }
+    .switch { position: relative; width: 34px; height: 20px; flex: none; }
+    .switch input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; z-index: 1; }
+    .switch span { position: absolute; inset: 0; border-radius: 10px; background: #c9cfd9; transition: background .15s; }
+    .switch span::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.2); transition: transform .15s; }
+    .switch input:checked + span { background: var(--accent); }
+    .switch input:checked + span::after { transform: translateX(14px); }
+    .seg { display: inline-flex; background: var(--hover); border-radius: var(--r-btn); padding: 2px; gap: 2px; }
+    .seg button { height: 26px; min-width: 30px; padding: 0 10px; border: 0; border-radius: 6px; background: none; color: var(--text-2); font-weight: 500; }
+    .seg button.on { background: var(--panel); color: var(--text); box-shadow: 0 1px 2px rgba(20, 24, 33, .08); }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; background: #c9cfd9; }
+    .dot.ok { background: #2f8f5b; }
+    .dot.bad { background: #a8324a; }
+    .p-dot { width: 22px; height: 22px; border-radius: 6px; color: #fff; display: grid; place-items: center; font-size: 11px; font-weight: 600; flex: none; }
+    .saved { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #141821; color: #fff; padding: 8px 14px; border-radius: var(--r-btn); font-size: 12.5px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+    .saved.show { opacity: 1; }
+    .err-text { color: #a8324a; font-size: 12px; }
+    .perm { font-size: 12px; color: var(--text-2); }
+    .row-acts { display: flex; gap: 6px; }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav id="nav">
+      <h1>Settings</h1>
+      <a href="#search">Search engine</a>
+      <a href="#startup">On startup</a>
+      <a href="#appearance">Appearance</a>
+      <a href="#downloads">Downloads</a>
+      <a href="#ai">Opal AI</a>
+      <a href="#onyx">Onyx (optional)</a>
+      <a href="#profiles">Profiles</a>
+      <a href="#privacy">Privacy and sites</a>
+      <a href="#extensions">Extensions</a>
+      <a href="#about">About Opal</a>
+    </nav>
+    <main id="main">
+      <section id="search">
+        <h2>Search engine</h2>
+        <div class="card">
+          <div class="set"><div class="lbl"><b>Search engine</b><span>Used by the address bar, the new tab page and Opal AI searches. Bangs like !w work with DuckDuckGo.</span></div>
+            <select class="field" data-key="searchEngine" id="searchEngine"></select></div>
+        </div>
+      </section>
+
+      <section id="startup">
+        <h2>On startup</h2>
+        <div class="card">
+          <div class="set"><div class="lbl"><b>Default browser</b><span id="defaultState">Checking…</span></div>
+            <button class="btn" id="makeDefault">Make Opal the default</button></div>
+          <div class="set"><div class="lbl"><b>Continue where you left off</b><span>Reopen your spaces and tabs when Opal starts.</span></div>
+            <label class="switch"><input type="checkbox" data-key="restoreOnStartup" id="restoreOnStartup" aria-label="Continue where you left off"><span></span></label></div>
+          <div class="set"><div class="lbl"><b>Home page</b><span>Where the home button goes. Leave empty for the new tab page.</span></div>
+            <input class="field" id="homePage" placeholder="New tab page" spellcheck="false"></div>
+        </div>
+      </section>
+
+      <section id="appearance">
+        <h2>Appearance</h2>
+        <div class="card">
+          <div class="set"><div class="lbl"><b>Show bookmarks bar</b><span>For this profile.</span></div>
+            <label class="switch"><input type="checkbox" data-key="showBookmarksBar" id="showBookmarksBar" aria-label="Show bookmarks bar"><span></span></label></div>
+          <div class="set"><div class="lbl"><b>One-colour thinking dots</b><span>Opal AI's thinking indicator and loading tabs use the space colour only.</span></div>
+            <label class="switch"><input type="checkbox" data-key="ai.oneColorDots" id="oneColorDots" aria-label="One-colour thinking dots"><span></span></label></div>
+        </div>
+      </section>
+
+      <section id="downloads">
+        <h2>Downloads</h2>
+        <div class="card">
+          <div class="set"><div class="lbl"><b>Location</b><span id="downloadDir"></span></div>
+            <div class="row-acts"><button class="btn" id="resetDir">Default</button><button class="btn" id="pickDir">Change</button></div></div>
+          <div class="set"><div class="lbl"><b>Ask where to save each file</b></div>
+            <label class="switch"><input type="checkbox" data-key="askWhereToSave" id="askWhereToSave" aria-label="Ask where to save each file"><span></span></label></div>
+        </div>
+      </section>
+
+      <section id="ai">
+        <h2>Opal AI</h2>
+        <div class="card">
+          <div class="set"><div class="lbl"><b>Opal AI uses</b><span id="aiStatus">Opal works fully without AI.</span></div>
+            <select class="field" data-key="aiBackend" id="aiBackend">
+              <option value="auto">Automatic</option>
+              <option value="ollama">Ollama (on this computer)</option>
+              <option value="keys">My own API key</option>
+              <option value="onyx">Onyx</option>
+              <option value="off">Off</option>
+            </select></div>
+          <div class="set" data-for="ollama auto"><div class="lbl"><b>Ollama</b><span>Free and private: models run on this computer. Install from ollama.com, then <code>ollama pull llama3.2</code>.</span></div>
+            <input class="field" id="ollamaUrl" spellcheck="false" placeholder="http://127.0.0.1:11434" style="width:200px"></div>
+          <div class="set" data-for="ollama auto"><div class="lbl"><b>Ollama model</b><span id="ollamaState"></span></div>
+            <select class="field" id="ollamaModel" data-key="ollamaModel"></select></div>
+          <div class="set" data-for="keys auto"><div class="lbl"><b>Claude API key</b><span id="anthropicState">From console.anthropic.com. Stored encrypted on this computer, never shown again.</span></div>
+            <div class="row-acts"><input class="field" type="password" id="anthropicKey" placeholder="sk-ant-…" autocomplete="off" spellcheck="false" style="width:170px"><button class="btn" id="anthropicSave">Save</button><button class="btn danger" id="anthropicRemove" hidden>Remove</button></div></div>
+          <div class="set" data-for="keys auto" id="anthropicModelRow"><div class="lbl"><b>Claude model</b></div>
+            <select class="field" id="anthropicModel" data-key="anthropicModel"></select></div>
+          <div class="set" data-for="keys auto"><div class="lbl"><b>OpenAI API key</b><span id="openaiState">From platform.openai.com. Stored encrypted on this computer, never shown again.</span></div>
+            <div class="row-acts"><input class="field" type="password" id="openaiKey" placeholder="sk-…" autocomplete="off" spellcheck="false" style="width:170px"><button class="btn" id="openaiSave">Save</button><button class="btn danger" id="openaiRemove" hidden>Remove</button></div></div>
+          <div class="set" data-for="keys auto" id="openaiModelRow"><div class="lbl"><b>OpenAI model</b></div>
+            <select class="field" id="openaiModel" data-key="openaiModel"></select></div>
+          <div class="set" id="weakRow" hidden><div class="lbl"><b class="err-text">No keyring found</b><span>Your desktop has no secret store (GNOME Keyring or KWallet), so saved keys are only lightly protected on disk.</span></div></div>
+          <div class="set"><div class="lbl"><b>Answers from</b><span>Both shows the two answers one after the other.</span></div>
+            <div class="seg" id="provider"><button data-v="claude">Claude</button><button data-v="openai">ChatGPT</button><button data-v="both">Both</button></div></div>
+          <div class="set"><div class="lbl"><b>Panel size</b><span>You can also drag the panel's edge, or type /small, /medium or /large.</span></div>
+            <div class="seg" id="size"><button data-v="S">S</button><button data-v="M">M</button><button data-v="L">L</button></div></div>
+          <div class="set"><div class="lbl"><b>Translate pages to</b></div>
+            <select class="field" data-key="translateTarget" id="translateTarget"></select></div>
+        </div>
+      </section>
+
+      <section id="onyx">
+        <h2>Onyx (optional)</h2>
+        <div class="card">
+          <div class="set"><div class="lbl"><b><span class="dot" id="onyxDot"></span><span id="onyxState" style="display:inline"></span></b><span>Onyx is an optional local companion app. When it runs, Opal AI can use it and sync bookmarks, history, chats and settings to it.</span></div>
+            <button class="btn" id="onyxTest">Test connection</button></div>
+          <div class="set"><div class="lbl"><b>Onyx address</b><span>Only this computer (127.0.0.1) is allowed.</span></div>
+            <input class="field" id="onyxUrl" spellcheck="false"></div>
+          <div class="set"><div class="lbl"><b>Token file</b><span>Leave empty to find it automatically (Onyx's discovery file).</span></div>
+            <input class="field" id="onyxTokenFile" placeholder="Automatic" spellcheck="false"></div>
+          <div class="set"><div class="lbl"><b>Sync with Onyx</b><span id="syncState">Bookmarks, history, Opal AI chats and settings.</span></div>
+            <button class="btn" id="syncNow">Sync now</button>
+            <label class="switch"><input type="checkbox" data-key="syncWithOnyx" id="syncWithOnyx" aria-label="Sync with Onyx"><span></span></label></div>
+        </div>
+      </section>
+
+      <section id="profiles">
+        <h2>Profiles</h2>
+        <div class="card" id="profileList"></div>
+        <div style="margin-top:10px; display:flex; gap:8px">
+          <input class="field" id="newProfile" placeholder="New profile name" style="flex:1">
+          <button class="btn" id="addProfile">Add profile</button>
+        </div>
+      </section>
+
+      <section id="privacy">
+        <h2>Privacy and sites</h2>
+        <div class="card">
+          <div class="set"><div class="lbl"><b>Delete browsing data</b><span>History, cookies, cache and downloads list.</span></div>
+            <button class="btn" id="clearData">Delete…</button></div>
+          <div class="set"><div class="lbl"><b>Passwords</b><span>Opal has no password manager; use your password manager's app or extension.</span></div>
+            <a class="btn" href="opal://passwords">Learn more</a></div>
+        </div>
+        <div class="section-title">Site permissions</div>
+        <div class="card" id="sites"></div>
+      </section>
+
+      <section id="extensions">
+        <h2>Extensions</h2>
+        <div class="card">
+          <div class="set"><div class="lbl"><b>Manage extensions</b><span>Install from the Chrome Web Store or load unpacked folders.</span></div>
+            <a class="btn" href="opal://extensions">Open</a></div>
+        </div>
+      </section>
+
+      <section id="about">
+        <h2>About Opal</h2>
+        <div class="card">
+          <div class="set" id="updateRow" hidden><div class="lbl"><b>Update Opal automatically</b><span id="updateState">AppImage only; packages update with your system.</span></div>
+            <label class="switch"><input type="checkbox" data-key="autoUpdate" id="autoUpdate" aria-label="Update Opal automatically"><span></span></label></div>
+          <div class="set"><div class="lbl"><b>Opal <span id="version" style="display:inline;font-size:inherit;color:inherit"></span></b><span>A calm browser for Linux, with Opal AI.</span></div>
+            <a class="btn" href="opal://about">About</a></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="saved" id="saved">Saved</div>
+  <script src="icons.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>

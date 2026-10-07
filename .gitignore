@@ -1,0 +1,28 @@
+# Dependencies and build output
+node_modules/
+dist/
+out/
+release/
+build-dir/
+.flatpak-builder/
+
+# Tests
+test-results/
+playwright-report/
+.test-tmp/
+
+# Logs and local environment
+*.log
+npm-debug.log*
+.env
+.env.*
+!.env.example
+
+# Local settings and editor files
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+.claude/settings.local.json
+*.local.json

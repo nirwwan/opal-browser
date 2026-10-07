@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Downloads</title>
+  <link rel="stylesheet" href="pages.css">
+  <style>
+    .d-row { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-bottom: 1px solid var(--hair); }
+    .d-row:last-child { border-bottom: 0; }
+    .d-row .ic { color: var(--text-2); }
+    .d-row .name { color: var(--text); font-weight: 500; }
+    .d-row .name.gone { text-decoration: line-through; color: var(--text-2); }
+    .d-row .meta { font-size: 12px; color: var(--text-2); }
+    .d-row .url { font-size: 12px; color: var(--text-2); }
+    .bar { height: 3px; border-radius: 2px; background: var(--hair); margin-top: 6px; overflow: hidden; }
+    .bar span { display: block; height: 100%; background: var(--accent); }
+    .acts { display: flex; gap: 6px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="page-head"><h1>Downloads</h1><button class="btn" id="clear">Clear list</button></div>
+    <div class="card" id="list"></div>
+  </div>
+  <script src="icons.js"></script>
+  <script src="downloads.js"></script>
+</body>
+</html>

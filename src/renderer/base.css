@@ -1,0 +1,70 @@
+/* Shared tokens, font and resets for Opal's UI views (chrome, overlay, AI panel). */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
+  font-display: block;
+  src: url(../../assets/fonts/BricolageGrotesque-latin.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
+  font-display: block;
+  src: url(../../assets/fonts/BricolageGrotesque-latin-ext.woff2) format('woff2-variations');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  --frame: #e6e9ee;
+  --rail: #dde1e8;
+  --panel: #ffffff;
+  --text: #141821;
+  --text-2: #5a6170;
+  --body: #2a2f3a;
+  --hair: #edf0f3;
+  --border: #d7dce4;
+  --hover: #f1f3f6;
+  --accent: #2a4bc7;
+  --accent-soft: rgba(42, 75, 199, .10);
+  --r-panel: 12px;
+  --r-tab: 10px;
+  --r-btn: 8px;
+  --shadow: 0 2px 6px rgba(20, 24, 33, .06);
+  --pad: 10px;
+  --rail-w: 68px;
+  --tabs-w: 236px;
+  --ai-w: 400px;
+  --font: 'Bricolage Grotesque', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
+body {
+  font: 400 13px/1.35 var(--font);
+  color: var(--body);
+  background: var(--frame);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: default; }
+input { font: inherit; color: var(--text); }
+kbd { font: inherit; }
+.muted { color: var(--text-2); }
+.ic { display: block; flex: none; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+
+.btn {
+  height: 28px; padding: 0 12px; border-radius: var(--r-btn);
+  border: 1px solid var(--border); background: var(--panel); color: var(--text);
+  font-weight: 500;
+}
+.btn:hover { background: var(--hover); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { filter: brightness(1.08); }
+
