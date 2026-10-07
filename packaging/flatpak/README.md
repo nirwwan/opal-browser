@@ -13,7 +13,7 @@ flatpak run io.github.nirwwan.Opal
 
 Before submitting to Flathub:
 
-- Fill in the two `sha256:` values from the release's `SHA256SUMS` (and update the URLs for each new version).
+- For each new version, update the two URLs and `sha256:` values from the release's `SHA256SUMS` (0.1.0 is filled in).
 - Open a pull request against `flathub/flathub` with the manifest, following https://docs.flathub.org/docs/for-app-authors/submission
 - The app ID `io.github.nirwwan.Opal` matches the GitHub account, which Flathub accepts for verification.
 - Flathub reviewers ask for: a stable release with screenshots (the metainfo points at `docs/screenshots/opal.png`),

@@ -38,12 +38,14 @@ modules:
       - type: archive
         only-arches: [x86_64]
         url: https://github.com/nirwwan/opal-browser/releases/download/v0.1.0/opal-0.1.0-linux-x64.tar.gz
-        sha256: FILL_IN_FROM_SHA256SUMS
+        sha256: 648088a3e6c3787d0f227d247477b74030819184f10158f93c4c7048064872b6
+        strip-components: 1
         dest: opal-tarball
       - type: archive
         only-arches: [aarch64]
         url: https://github.com/nirwwan/opal-browser/releases/download/v0.1.0/opal-0.1.0-linux-arm64.tar.gz
-        sha256: FILL_IN_FROM_SHA256SUMS
+        sha256: 30ccfbc55802cf20bcfb8d3afbb3568dbd9382258a53a9e7913a73927d10c452
+        strip-components: 1
         dest: opal-tarball
       - type: script
         dest-filename: opal.sh
