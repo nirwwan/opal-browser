@@ -12,7 +12,7 @@ test('Studio layout: three spaces, one new tab, Opal title', async () => {
   await expect(ui.locator('#space-name')).toHaveText('Personal');
   await expect(ui.locator('.tab')).toHaveCount(1);
   await expect(ui.locator('.tab.active .title')).toHaveText('New tab');
-  await expect(ui.locator('#profile-sub')).toContainText('Onyx');
+  await expect(ui.locator('#profile-sub')).toHaveText('Saved on this computer');
   const geom = await ui.evaluate(() => {
     const w = (s) => Math.round(document.querySelector(s).getBoundingClientRect().width);
     return { rail: w('#rail'), tabs: w('#tabs-col'), toolbar: Math.round(document.querySelector('#toolbar').getBoundingClientRect().height), bar: Math.round(document.querySelector('#bookmarks-bar').getBoundingClientRect().height), font: getComputedStyle(document.body).fontFamily, size: getComputedStyle(document.body).fontSize };
